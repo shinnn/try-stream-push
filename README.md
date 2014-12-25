@@ -1,6 +1,7 @@
 # try-stream-push 
 
 [![NPM version](https://img.shields.io/npm/v/try-stream-push.svg?style=flat)](https://www.npmjs.com/package/try-stream-push)
+[![Bower version](https://img.shields.io/bower/v/try-stream-push.svg?style=flat)](https://github.com/shinnn/try-stream-push/releases)
 [![Build Status](https://img.shields.io/travis/shinnn/try-stream-push.svg?style=flat)](https://travis-ci.org/shinnn/try-stream-push)
 [![Build status](https://ci.appveyor.com/api/projects/status/to4aewekumw29ael?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/try-stream-push)
 [![Coverage Status](https://img.shields.io/coveralls/shinnn/try-stream-push.svg?style=flat)](https://coveralls.io/r/shinnn/try-stream-push)
@@ -28,10 +29,16 @@ It is useful to implement [`_transform`](http://nodejs.org/api/stream.html#strea
 
 ## Installation
 
-[Use npm.](https://docs.npmjs.com/cli/install)
+### [npm](https://www.npmjs.com/)
 
 ```sh
 npm install try-stream-push
+```
+
+### [bower](http://bower.io/)
+
+```sh
+bower install try-stream-push
 ```
 
 ## API
