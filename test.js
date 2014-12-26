@@ -7,7 +7,7 @@ var tryStreamPush = require('./');
 var test = require('tape');
 
 test('tryStreamPush()', function(t) {
-  t.plan(10);
+  t.plan(12);
 
   t.equal(tryStreamPush.name, 'tryStreamPush', 'should have a function name.');
 
@@ -43,6 +43,18 @@ test('tryStreamPush()', function(t) {
     throw new Error('a');
   });
 
+  returnValue = tryStreamPush(through().on('error', function(err) {
+    t.deepEqual(
+      err,
+      new TypeError('a'),
+      'should modify the error using error handler function.'
+    );
+  }), function() {
+    throw new Error('a');
+  }, function(err) {
+    return new TypeError(err.message);
+  });
+
   t.strictEqual(returnValue, true, 'should return the return value of emitter.emit.');
 
   t.throws(
@@ -61,6 +73,12 @@ test('tryStreamPush()', function(t) {
     tryStreamPush.bind(null, through(), true),
     /TypeError.*must be a function/,
     'should throw a type error when the second argument is not a function.'
+  );
+
+  t.throws(
+    tryStreamPush.bind(null, through(), t.fail, 1),
+    /TypeError.*must be a function/,
+    'should throw a type error when the third argument is not a function.'
   );
 
   t.throws(

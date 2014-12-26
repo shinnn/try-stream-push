@@ -10,7 +10,6 @@
 [Push][push] the return value of the function to the [stream](http://nodejs.org/api/stream.html#stream_stream), or make the stream emit the thrown error
 
 ```javascript
-var assert = require('assert');
 var through = require('through2');
 var tryStreamPush = require('try-stream-push');
 
@@ -47,10 +46,11 @@ bower install try-stream-push
 var tryStreamPush = require('try-stream-push');
 ```
 
-### tryStreamPush(*stream*, *fn*)
+### tryStreamPush(*stream*, *fn* [, *errorHandler*])
 
 *stream*: `Object` (stream)  
 *fn*: `Function`  
+*errorHandler*: `Function`  
 Return: `Boolean` (the same as the return value of [`readable.push()`][push] when the function doesn't throw, otherwise the same as [`emitter.emit()`][emit]'s)
 
 It calls the function passed to the second argument.
@@ -94,6 +94,29 @@ stream.on('end', function() {
 });
 
 stram.end();
+```
+
+#### errorHandler(*error*)
+
+*error*: `Error`
+
+Takes the thrown error object and modifies it before emitting.
+
+```javascript
+var gutil = require('gulp-util');
+var through = require('through2');
+var tryStreamPush = require('try-stream-push');
+
+var stream = through.obj(function(data, enc, cb) {
+  tryStreamPush(this, function() {
+    // something
+  }, function errorHandler(err) {
+    // convert the default error into a gulp plugin error
+    return gutil.PluginError('plugin-name', err);
+  });
+
+  cb();
+});
 ```
 
 ## License
