@@ -1,6 +1,6 @@
 {
   "name": "try-stream-push",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Push the return value of the function to the stream, or make it emit the thrown error",
   "repository": "shinnn/try-stream-push",
   "author": {
