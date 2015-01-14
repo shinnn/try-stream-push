@@ -1,4 +1,4 @@
-# try-stream-push 
+# try-stream-push
 
 [![NPM version](https://img.shields.io/npm/v/try-stream-push.svg?style=flat)](https://www.npmjs.com/package/try-stream-push)
 [![Bower version](https://img.shields.io/bower/v/try-stream-push.svg?style=flat)](https://github.com/shinnn/try-stream-push/releases)
@@ -121,7 +121,7 @@ var stream = through.obj(function(data, enc, cb) {
 
 ## License
 
-Copyright (c) 2014 [Shinnosuke Watanabe](https://github.com/shinnn)
+Copyright (c) [Shinnosuke Watanabe](https://github.com/shinnn)
 
 Licensed under [the MIT License](./LICENSE).
 
