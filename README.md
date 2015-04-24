@@ -1,13 +1,13 @@
 # try-stream-push
 
-[![NPM version](https://img.shields.io/npm/v/try-stream-push.svg?style=flat)](https://www.npmjs.com/package/try-stream-push)
-[![Bower version](https://img.shields.io/bower/v/try-stream-push.svg?style=flat)](https://github.com/shinnn/try-stream-push/releases)
-[![Build Status](https://img.shields.io/travis/shinnn/try-stream-push.svg?style=flat)](https://travis-ci.org/shinnn/try-stream-push)
+[![NPM version](https://img.shields.io/npm/v/try-stream-push.svg)](https://www.npmjs.com/package/try-stream-push)
+[![Bower version](https://img.shields.io/bower/v/try-stream-push.svg)](https://github.com/shinnn/try-stream-push/releases)
+[![Build Status](https://travis-ci.org/shinnn/try-stream-push.svg?branch=master)](https://travis-ci.org/shinnn/try-stream-push)
 [![Build status](https://ci.appveyor.com/api/projects/status/to4aewekumw29ael?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/try-stream-push)
-[![Coverage Status](https://img.shields.io/coveralls/shinnn/try-stream-push.svg?style=flat)](https://coveralls.io/r/shinnn/try-stream-push)
-[![devDependency Status](https://david-dm.org/shinnn/try-stream-push/dev-status.svg?style=flat)](https://david-dm.org/shinnn/try-stream-push#info=devDependencies)
+[![Coverage Status](https://img.shields.io/coveralls/shinnn/try-stream-push.svg)](https://coveralls.io/r/shinnn/try-stream-push)
+[![devDependency Status](https://david-dm.org/shinnn/try-stream-push/dev-status.svg)](https://david-dm.org/shinnn/try-stream-push#info=devDependencies)
 
-[Push][push] the return value of the function to the [stream](http://nodejs.org/api/stream.html#stream_stream), or make the stream emit the thrown error
+[Push][push] the return value of the function to the [stream](https://nodejs.org/api/stream.html#stream_stream), or make the stream emit the thrown error
 
 ```javascript
 var through = require('through2');
@@ -30,13 +30,13 @@ It is useful to implement [`_transform`](http://nodejs.org/api/stream.html#strea
 
 ### [npm](https://www.npmjs.com/)
 
-```sh
+```
 npm install try-stream-push
 ```
 
 ### [bower](http://bower.io/)
 
-```sh
+```
 bower install try-stream-push
 ```
 
@@ -125,5 +125,5 @@ Copyright (c) [Shinnosuke Watanabe](https://github.com/shinnn)
 
 Licensed under [the MIT License](./LICENSE).
 
-[push]: http://nodejs.org/api/stream.html#stream_readable_push_chunk_encoding
-[emit]: http://nodejs.org/api/events.html#events_emitter_emit_event_arg1_arg2
+[push]: https://nodejs.org/api/stream.html#stream_readable_push_chunk_encoding
+[emit]: https://nodejs.org/api/events.html#events_emitter_emit_event_arg1_arg2
