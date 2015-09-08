@@ -1,39 +1,34 @@
-'use strict';
+'use strong';
 
-var Writable = require('stream').Writable;
+const {PassThrough, Writable} = require('stream');
 
-var through = require('through2');
-var tryStreamPush = require('./');
-var test = require('tape');
+const tryStreamPush = require('./');
+const test = require('tape');
 
-test('tryStreamPush()', function(t) {
+test('tryStreamPush()', t => {
   t.plan(12);
 
   t.equal(tryStreamPush.name, 'tryStreamPush', 'should have a function name.');
 
-  var returnValue = tryStreamPush(through().on('data', function(buf) {
+  let returnValue = tryStreamPush(new PassThrough().on('data', buf => {
     t.deepEqual(
       buf,
       new Buffer('0'),
       'should insert return value of the function into the stream.'
     );
-  }), function() {
-    return new Buffer('0');
-  });
+  }), () => new Buffer('0'));
 
   t.strictEqual(returnValue, true, 'should return the return value of stream.push.');
 
-  tryStreamPush(through.obj().on('data', function(data) {
+  tryStreamPush(new PassThrough({objectMode: true}).on('data', data => {
     t.deepEqual(
       data,
       {a: 'b'},
-      'should insert return value of the function into the stream.'
+      'should insert return value of the function into the object stream.'
     );
-  }), function() {
-    return {a: 'b'};
-  });
+  }), () => ({a: 'b'}));
 
-  returnValue = tryStreamPush(through().on('error', function(err) {
+  returnValue = tryStreamPush(new PassThrough().on('error', err => {
     t.deepEqual(
       err,
       new Error('a'),
@@ -43,7 +38,7 @@ test('tryStreamPush()', function(t) {
     throw new Error('a');
   });
 
-  returnValue = tryStreamPush(through().on('error', function(err) {
+  returnValue = tryStreamPush(new PassThrough().on('error', err => {
     t.deepEqual(
       err,
       new TypeError('a'),
@@ -51,38 +46,36 @@ test('tryStreamPush()', function(t) {
     );
   }), function() {
     throw new Error('a');
-  }, function(err) {
-    return new TypeError(err.message);
-  });
+  }, err => new TypeError(err.message));
 
   t.strictEqual(returnValue, true, 'should return the return value of emitter.emit.');
 
   t.throws(
-    tryStreamPush.bind(null, {}, t.fail),
+    () => tryStreamPush({}, t.fail),
     /TypeError.*must be a stream/,
     'should throw a type error when the first argument is not a stream.'
   );
 
   t.throws(
-    tryStreamPush.bind(null, new Writable(), t.fail),
+    () => tryStreamPush(new Writable(), t.fail),
     /TypeError.*not readable/,
     'should throw a type error when the stream is not readable.'
   );
 
   t.throws(
-    tryStreamPush.bind(null, through(), true),
+    () => tryStreamPush(new PassThrough(), true),
     /TypeError.*must be a function/,
     'should throw a type error when the second argument is not a function.'
   );
 
   t.throws(
-    tryStreamPush.bind(null, through(), t.fail, 1),
+    () => tryStreamPush(new PassThrough(), t.fail, 1),
     /TypeError.*must be a function/,
     'should throw a type error when the third argument is not a function.'
   );
 
   t.throws(
-    tryStreamPush.bind(null),
+    () => tryStreamPush(),
     /TypeError.*must be a stream/,
     'should throw a type error when it takes no arguments.'
   );

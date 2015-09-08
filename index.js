@@ -15,14 +15,14 @@ function validateArgs(stream, fn, errorHandler) {
 
   if (typeof fn !== 'function') {
     throw new TypeError(
-      fn +
+      String(fn) +
       ' is not a function. Second argument must be a function.'
     );
   }
 
   if (errorHandler && typeof errorHandler !== 'function') {
     throw new TypeError(
-      errorHandler +
+      String(errorHandler) +
       ' is not a function. Third argument must be a function.'
     );
   }
@@ -31,14 +31,12 @@ function validateArgs(stream, fn, errorHandler) {
 module.exports = function tryStreamPush(stream, fn, errorHandler) {
   validateArgs(stream, fn, errorHandler);
 
-  var result;
   try {
-    result = fn();
+    return stream.push(fn());
   } catch (e) {
     if (errorHandler) {
       return stream.emit('error', errorHandler(e));
     }
     return stream.emit('error', e);
   }
-  return stream.push(result);
 };
