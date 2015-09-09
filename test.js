@@ -10,15 +10,13 @@ test('tryStreamPush()', t => {
 
   t.equal(tryStreamPush.name, 'tryStreamPush', 'should have a function name.');
 
-  let returnValue = tryStreamPush(new PassThrough().on('data', buf => {
+  t.strictEqual(tryStreamPush(new PassThrough().on('data', buf => {
     t.deepEqual(
       buf,
       new Buffer('0'),
       'should insert return value of the function into the stream.'
     );
-  }), () => new Buffer('0'));
-
-  t.strictEqual(returnValue, true, 'should return the return value of stream.push.');
+  }), () => new Buffer('0')), true, 'should return the return value of stream.push.');
 
   tryStreamPush(new PassThrough({objectMode: true}).on('data', data => {
     t.deepEqual(
@@ -28,7 +26,7 @@ test('tryStreamPush()', t => {
     );
   }), () => ({a: 'b'}));
 
-  returnValue = tryStreamPush(new PassThrough().on('error', err => {
+  tryStreamPush(new PassThrough().on('error', err => {
     t.deepEqual(
       err,
       new Error('a'),
@@ -38,7 +36,7 @@ test('tryStreamPush()', t => {
     throw new Error('a');
   });
 
-  returnValue = tryStreamPush(new PassThrough().on('error', err => {
+  t.strictEqual(tryStreamPush(new PassThrough().on('error', err => {
     t.deepEqual(
       err,
       new TypeError('a'),
@@ -46,9 +44,7 @@ test('tryStreamPush()', t => {
     );
   }), function() {
     throw new Error('a');
-  }, err => new TypeError(err.message));
-
-  t.strictEqual(returnValue, true, 'should return the return value of emitter.emit.');
+  }, err => new TypeError(err.message)), true, 'should return the return value of emitter.emit.');
 
   t.throws(
     () => tryStreamPush({}, t.fail),
