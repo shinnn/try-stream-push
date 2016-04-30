@@ -9,7 +9,7 @@
 [Push][push] the return value of the function to the [stream](https://nodejs.org/api/stream.html#stream_stream), or make the stream emit the thrown error
 
 ```javascript
-const Transform = require('readable-stream/transform');
+const {Transform} = require('stream');
 const tryStreamPush = require('try-stream-push');
 
 function createJSONParseStream() {
@@ -59,7 +59,7 @@ If the function doesn't throw, it [pushes][push] the return value of the functio
 If the function throws an error, it makes the stream [emit] the error.
 
 ```javascript
-const PassThrough = require('stream').PassThrough;
+const {PassThrough} = require('stream');
 const tryStreamPush = require('try-stream-push');
 
 const all = {
@@ -67,7 +67,7 @@ const all = {
   error: []
 };
 
-let stream = new PassThrough({objectMode: true})
+const stream = new PassThrough({objectMode: true})
   .on('data', data => all.data.push(data))
   .on('error', err => all.error.push(err));
 
@@ -91,12 +91,12 @@ Takes the thrown error object and modifies it before emitting.
 
 ```javascript
 const gutil = require('gulp-util');
-const Transform = require('readable-stream/transform');
+const {Transform} = require('stream');
 const tryStreamPush = require('try-stream-push');
 
 let stream = new Transform({
   objectMode: true,
-  transform: function(data, enc, cb) {
+  transform(data, enc, cb) {
     tryStreamPush(this, function() {
       // something
     }, function errorHandler(err) {
@@ -111,7 +111,7 @@ let stream = new Transform({
 
 ## License
 
-Copyright (c) 2014 - 2015 [Shinnosuke Watanabe](https://github.com/shinnn)
+Copyright (c) 2014 - 2016 [Shinnosuke Watanabe](https://github.com/shinnn)
 
 Licensed under [the MIT License](./LICENSE).
 
